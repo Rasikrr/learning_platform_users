@@ -4,7 +4,6 @@ import (
 	coreEnum "github.com/Rasikrr/learning_platform_core/enum"
 	"github.com/Rasikrr/learning_platform_users/internal/domain/entity"
 
-	"github.com/google/uuid"
 	"time"
 )
 
@@ -28,9 +27,8 @@ func convertModel(m model) (*entity.User, error) {
 	if err != nil {
 		return nil, err
 	}
-	id, _ := uuid.Parse(m.ID)
 	return &entity.User{
-		ID:          id,
+		ID:          m.ID,
 		Name:        m.Name,
 		LastName:    m.LastName,
 		Email:       m.Email,
@@ -44,7 +42,7 @@ func convertModel(m model) (*entity.User, error) {
 
 func convertToModel(u *entity.User) model {
 	return model{
-		ID:          u.ID.String(),
+		ID:          u.ID,
 		Name:        u.Name,
 		LastName:    u.LastName,
 		Email:       u.Email,

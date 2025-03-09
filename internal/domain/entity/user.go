@@ -9,7 +9,7 @@ import (
 //go:generate easyjson -all user.go
 
 type User struct {
-	ID          uuid.UUID            `json:"id"`
+	ID          string               `json:"id"`
 	Name        *string              `json:"name"`
 	LastName    *string              `json:"last_name"`
 	Email       string               `json:"email"`
@@ -22,7 +22,7 @@ type User struct {
 
 func NewUser(email, password string) *User {
 	return &User{
-		ID:          uuid.New(),
+		ID:          uuid.New().String(),
 		Email:       email,
 		Password:    password,
 		AccountRole: coreEnum.AccountRoleUser,
@@ -33,7 +33,7 @@ func NewUser(email, password string) *User {
 
 func NewAdminUser(email, password string) *User {
 	return &User{
-		ID:          uuid.New(),
+		ID:          uuid.New().String(),
 		Email:       email,
 		Password:    password,
 		AccountRole: coreEnum.AccountRoleAdmin,

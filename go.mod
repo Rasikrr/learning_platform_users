@@ -3,7 +3,7 @@ module github.com/Rasikrr/learning_platform_users
 go 1.23
 
 require (
-	github.com/Rasikrr/learning_platform_core v0.0.12
+	github.com/Rasikrr/learning_platform_core v0.0.17
 	github.com/georgysavva/scany/v2 v2.1.3
 	github.com/google/uuid v1.6.0
 	github.com/jackc/pgx/v5 v5.7.2

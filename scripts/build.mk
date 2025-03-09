@@ -39,4 +39,14 @@ proto: deps ${VENDOR_PB}
 	@echo "Files generated"
 
 proto_deps:
-	echo "TODO: generate proto deps"
+	@echo "Generating proto deps..."
+	@rm -rf "${PKG}/deps"
+	@mkdir -p "${PKG}/deps"
+	@protoc \
+		-I="./deps" \
+		--go_out="${PKG}/deps" \
+		--go-grpc_out="${PKG}/deps" \
+		--go_opt="paths=source_relative" \
+		--go-grpc_opt="paths=source_relative" \
+		./deps/api/proto/*/*.proto
+	@echo "Files generated"

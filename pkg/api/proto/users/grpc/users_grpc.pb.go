@@ -19,7 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Users_GetByEmail_FullMethodName = "/users.Users/GetByEmail"
+	Users_GetByEmail_FullMethodName    = "/users.Users/GetByEmail"
+	Users_Create_FullMethodName        = "/users.Users/Create"
+	Users_ResetPassword_FullMethodName = "/users.Users/ResetPassword"
 )
 
 // UsersClient is the client API for Users service.
@@ -27,6 +29,8 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UsersClient interface {
 	GetByEmail(ctx context.Context, in *GetByEmailRequest, opts ...grpc.CallOption) (*GetByEmailResponse, error)
+	Create(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*EmptySuccessResponse, error)
+	ResetPassword(ctx context.Context, in *ResetPasswordRequest, opts ...grpc.CallOption) (*EmptySuccessResponse, error)
 }
 
 type usersClient struct {
@@ -46,11 +50,31 @@ func (c *usersClient) GetByEmail(ctx context.Context, in *GetByEmailRequest, opt
 	return out, nil
 }
 
+func (c *usersClient) Create(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*EmptySuccessResponse, error) {
+	out := new(EmptySuccessResponse)
+	err := c.cc.Invoke(ctx, Users_Create_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *usersClient) ResetPassword(ctx context.Context, in *ResetPasswordRequest, opts ...grpc.CallOption) (*EmptySuccessResponse, error) {
+	out := new(EmptySuccessResponse)
+	err := c.cc.Invoke(ctx, Users_ResetPassword_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UsersServer is the server API for Users service.
 // All implementations must embed UnimplementedUsersServer
 // for forward compatibility
 type UsersServer interface {
 	GetByEmail(context.Context, *GetByEmailRequest) (*GetByEmailResponse, error)
+	Create(context.Context, *CreateUserRequest) (*EmptySuccessResponse, error)
+	ResetPassword(context.Context, *ResetPasswordRequest) (*EmptySuccessResponse, error)
 	mustEmbedUnimplementedUsersServer()
 }
 
@@ -60,6 +84,12 @@ type UnimplementedUsersServer struct {
 
 func (UnimplementedUsersServer) GetByEmail(context.Context, *GetByEmailRequest) (*GetByEmailResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetByEmail not implemented")
+}
+func (UnimplementedUsersServer) Create(context.Context, *CreateUserRequest) (*EmptySuccessResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+}
+func (UnimplementedUsersServer) ResetPassword(context.Context, *ResetPasswordRequest) (*EmptySuccessResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ResetPassword not implemented")
 }
 func (UnimplementedUsersServer) mustEmbedUnimplementedUsersServer() {}
 
@@ -92,6 +122,42 @@ func _Users_GetByEmail_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Users_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsersServer).Create(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Users_Create_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsersServer).Create(ctx, req.(*CreateUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Users_ResetPassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ResetPasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsersServer).ResetPassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Users_ResetPassword_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsersServer).ResetPassword(ctx, req.(*ResetPasswordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Users_ServiceDesc is the grpc.ServiceDesc for Users service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -102,6 +168,14 @@ var Users_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetByEmail",
 			Handler:    _Users_GetByEmail_Handler,
+		},
+		{
+			MethodName: "Create",
+			Handler:    _Users_Create_Handler,
+		},
+		{
+			MethodName: "ResetPassword",
+			Handler:    _Users_ResetPassword_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

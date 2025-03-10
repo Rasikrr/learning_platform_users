@@ -15,6 +15,7 @@ migrations_down_to:
 	goose -dir migrations postgres "$(POSTGRES_DSN)" down-to $(V)
 
 create_migration:
+	mkdir -p migrations
 	go install github.com/pressly/goose/v3/cmd/goose@latest
 	goose -dir "./migrations" create $(NAME) sql
 

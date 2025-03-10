@@ -8,7 +8,22 @@ package users;
 
 service Users{
   rpc GetByEmail(GetByEmailRequest) returns (GetByEmailResponse){}
+  rpc Create(CreateUserRequest) returns (EmptySuccessResponse){}
+  rpc ResetPassword(ResetPasswordRequest) returns (EmptySuccessResponse){}
 
+}
+
+message ResetPasswordRequest{
+  string email = 1;
+  string passwordHash = 2;
+}
+
+
+message EmptySuccessResponse{
+}
+
+message CreateUserRequest{
+  User user = 1;
 }
 
 message User {

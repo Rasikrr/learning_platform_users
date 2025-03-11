@@ -7,12 +7,6 @@ import (
 	pb "github.com/Rasikrr/learning_platform_users/pkg/api/proto/users/grpc"
 )
 
-func convertGetByEmailResponse(u *entity.User) *pb.GetByEmailResponse {
-	return &pb.GetByEmailResponse{
-		User: convertUserToPb(u),
-	}
-}
-
 func convertUserToPb(u *entity.User) *pb.User {
 	if u == nil {
 		return nil
@@ -46,4 +40,12 @@ func convertUser(user *pb.User) (*entity.User, error) {
 		UpdatedAt:   converters.ConvertToTime(user.UpdatedAt),
 		DeletedAt:   converters.ConvertToTimePtr(user.DeletedAt),
 	}, nil
+}
+
+func convertUpdateUserParamsToEntity(params *pb.UpdateUserRequest) *entity.UpdateUserParams {
+	return &entity.UpdateUserParams{
+		ID:       params.UserId,
+		Name:     params.Name,
+		LastName: params.LastName,
+	}
 }

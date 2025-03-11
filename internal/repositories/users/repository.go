@@ -72,7 +72,7 @@ func (r *repository) GetByID(ctx context.Context, id string) (*entity.User, erro
 	var m model
 	if err := pgxscan.Get(ctx, r.db, &m, getByIDStmt, id); err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
-			return nil, errors.New("user not found")
+			return nil, nil
 		}
 		return nil, err
 	}

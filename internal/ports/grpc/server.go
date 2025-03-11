@@ -6,17 +6,17 @@ import (
 	"google.golang.org/grpc"
 )
 
-type Server struct {
+type server struct {
 	pb.UnimplementedUsersServer
 	usersService usersS.Service
 }
 
 func NewServer(
-	server *grpc.Server,
+	srv *grpc.Server,
 	usersService usersS.Service,
 ) {
-	srv := &Server{
+	s := &server{
 		usersService: usersService,
 	}
-	pb.RegisterUsersServer(server, srv)
+	pb.RegisterUsersServer(srv, s)
 }

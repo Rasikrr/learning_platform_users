@@ -16,6 +16,10 @@ github.com/Rasikrr/learning_platform_core v0.0.17 h1:ATCCVOl//1pmJMKy5FWT/mVAU/L
 github.com/Rasikrr/learning_platform_core v0.0.17/go.mod h1:Bva7yWavGf3eG0bmWnipcG5rfHqEwoZgwvVrmWhOAek=
 github.com/Rasikrr/learning_platform_core v0.0.18 h1:Kt8DcOqwa1jlHHShczGhGPgDnoKOzXynRm8qgF4mFps=
 github.com/Rasikrr/learning_platform_core v0.0.18/go.mod h1:dVGQuelhiUrY5mt8t/XgHUlRwM6yTaz/qwu6H74FmeQ=
+github.com/Rasikrr/learning_platform_core v0.0.20 h1:335OaQxuW0iEFw84qE8pPqoFjq+lzYh7jLLY6uNW1PI=
+github.com/Rasikrr/learning_platform_core v0.0.20/go.mod h1:dVGQuelhiUrY5mt8t/XgHUlRwM6yTaz/qwu6H74FmeQ=
+github.com/Rasikrr/learning_platform_core v0.0.22 h1:Ubu+FizS+7/6lJHsNoDWj8hmLP4ju/5q9JbYbpcJR7g=
+github.com/Rasikrr/learning_platform_core v0.0.22/go.mod h1:dVGQuelhiUrY5mt8t/XgHUlRwM6yTaz/qwu6H74FmeQ=
 github.com/avast/retry-go v3.0.0+incompatible h1:4SOWQ7Qs+oroOTQOYnAHqelpCO0biHSxpiH9JdtuBj0=
 github.com/avast/retry-go v3.0.0+incompatible/go.mod h1:XtSnn+n/sHqQIpZ10K1qAevBhOOCWBLXXy3hyiqqBrY=
 github.com/bsm/ginkgo/v2 v2.12.0 h1:Ny8MWAHyOepLGlLKYmXG4IEkioBysk6GpaRTLC8zwWs=

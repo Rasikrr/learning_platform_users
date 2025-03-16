@@ -56,3 +56,27 @@ func (s *server) Delete(ctx context.Context, in *pb.DeleteUserRequest) (*pb.Empt
 	}
 	return &pb.EmptySuccessResponse{}, nil
 }
+
+func (s *server) CheckEnrollment(ctx context.Context, in *pb.CheckEnrollmentRequest) (*pb.CheckEnrollmentResponse, error) {
+	enrolled, err := s.enrollmentsService.CheckEnrollment(ctx, in.GetUserId(), in.GetCourseId())
+	if err != nil {
+		return nil, err
+	}
+	return &pb.CheckEnrollmentResponse{Enrolled: enrolled}, nil
+}
+
+func (s *server) GetUserEnrollments(ctx context.Context, in *pb.GetUserEnrollmentsRequest) (*pb.GetUserEnrollmentsResponse, error) {
+	enrollments, err := s.enrollmentsService.GetUserEnrollments(ctx, in.GetUserId())
+	if err != nil {
+		return nil, err
+	}
+	return &pb.GetUserEnrollmentsResponse{Enrollments: convertEnrollmentsToPb(enrollments)}, nil
+}
+
+func (s *server) Enroll(ctx context.Context, in *pb.EnrollRequest) (*pb.EmptySuccessResponse, error) {
+	err := s.enrollmentsService.Enroll(ctx, in.GetUserId(), in.GetCourseId())
+	if err != nil {
+		return nil, err
+	}
+	return &pb.EmptySuccessResponse{}, nil
+}

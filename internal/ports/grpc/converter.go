@@ -1,3 +1,4 @@
+// nolint: unused
 package grpc
 
 import (
@@ -5,6 +6,7 @@ import (
 	"github.com/Rasikrr/learning_platform_core/grpc/converters"
 	"github.com/Rasikrr/learning_platform_users/internal/domain/entity"
 	pb "github.com/Rasikrr/learning_platform_users/pkg/api/proto/users/grpc"
+	"github.com/samber/lo"
 )
 
 func convertUserToPb(u *entity.User) *pb.User {
@@ -47,5 +49,25 @@ func convertUpdateUserParamsToEntity(params *pb.UpdateUserRequest) *entity.Updat
 		ID:       params.UserId,
 		Name:     params.Name,
 		LastName: params.LastName,
+	}
+}
+
+func convertEnrollmentsToPb(enrollments []*entity.Enrollment) []*pb.Enrollment {
+	return lo.Map(enrollments, func(enrollment *entity.Enrollment, _ int) *pb.Enrollment {
+		return convertEnrollmentToPb(enrollment)
+	})
+}
+
+func convertEnrollmentToPb(enrollment *entity.Enrollment) *pb.Enrollment {
+	if enrollment == nil {
+		return nil
+	}
+	return &pb.Enrollment{
+		Id:        enrollment.ID,
+		UserId:    enrollment.UserID,
+		CourseId:  enrollment.CourseID,
+		Status:    enrollment.Status.String(),
+		CreatedAt: converters.ConvertToTimestampPb(&enrollment.CreatedAt),
+		UpdatedAt: converters.ConvertToTimestampPb(&enrollment.UpdatedAt),
 	}
 }

@@ -13,6 +13,33 @@ service Users{
   rpc UpdateUser(UpdateUserRequest) returns (EmptySuccessResponse){}
   rpc ResetPassword(ResetPasswordRequest) returns (EmptySuccessResponse){}
   rpc Delete(DeleteUserRequest) returns (EmptySuccessResponse){}
+
+  rpc CheckEnrollment(CheckEnrollmentRequest) returns (CheckEnrollmentResponse){}
+  rpc GetUserEnrollments(GetUserEnrollmentsRequest) returns (GetUserEnrollmentsResponse){}
+  rpc Enroll(EnrollRequest) returns (EmptySuccessResponse){}
+}
+
+message EnrollRequest{
+  string user_id = 1;
+  string course_id = 2;
+}
+
+
+message GetUserEnrollmentsRequest{
+  string user_id = 1;
+}
+
+message GetUserEnrollmentsResponse{
+  repeated Enrollment enrollments = 1;
+}
+
+message CheckEnrollmentRequest{
+  string user_id = 1;
+  string course_id = 2;
+}
+
+message CheckEnrollmentResponse{
+  bool enrolled = 1;
 }
 
 message UpdateUserRequest{
@@ -67,4 +94,13 @@ message GetByEmailRequest{
 
 message GetByEmailResponse{
   User user = 1;
+}
+
+message Enrollment{
+  string id = 1;
+  string user_id = 2;
+  string course_id = 3;
+  string status = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
 }
